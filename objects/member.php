@@ -39,7 +39,7 @@ class Member
 	 * The user ID
 	 * @var int
 	 */
-	var $userID;
+	public var $userID;
 	/**
 	 * The game ID
 	 * @var int

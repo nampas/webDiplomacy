@@ -47,6 +47,11 @@ class processMembers extends Members
 	function notifyGameProgressed()
 	{
 		$this->sendToPlaying('No',l_t("Game progressed to %s, %s",$this->Game->phase,$this->Game->datetxt($this->Game->turn)));
+
+		if (!$this->Game->isLiveGame()) {
+			// Don't spam people with emails if this is live
+			$this->sendExternalNotificationToPlaying('PROGRESSED');
+		}
 	}
 
 	/**

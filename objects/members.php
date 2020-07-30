@@ -19,6 +19,7 @@
  */
 
 require_once(l_r('objects/member.php'));
+require_once(l_r('objects/gameProgressNotifications.php'));
 /**
  * An object which manages the relationship with a game and its members. Often when
  * dealing with a certain game you're actually only dealing with the members of the
@@ -236,6 +237,7 @@ class Members
 	public function __construct(Game $Game)
 	{
 		$this->Game = $Game;
+		$this->Notifications = new GameProgressNotifications($Game);
 		$this->load();
 	}
 
@@ -341,6 +343,10 @@ class Members
 			$count += $Member->supplyCenterNo;
 
 		return $count;
+	}
+
+	function sendExternalNotificationToPlaying($notificationType) {
+		$this->Notifications->send($notificationType, $this->ByStatus['Playing']);
 	}
 
 	function send($keep, $text)
